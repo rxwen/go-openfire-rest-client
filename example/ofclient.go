@@ -17,12 +17,12 @@ func main() {
 	item := openfirerest.RosterItem{
 		JID:              "contact",
 		NickName:         "contact",
-		SubscriptionType: 3,
-		Groups: []openfirerest.RosterGroup{
-			{Group: "group"},
+		SubscriptionType: "3",
+		Groups: openfirerest.RosterGroup{
+			Group: "group",
 		},
 	}
 	fmt.Println(openfirerest.AddRoster(server, authorization, "user", item))
-	item.SubscriptionType = 2
+	item.SubscriptionType = "2"
 	fmt.Println(openfirerest.UpdateRoster(server, authorization, "user", item))
 }

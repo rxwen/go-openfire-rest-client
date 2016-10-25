@@ -16,7 +16,7 @@ type RosterGroup struct {
 type RosterItem struct {
 	JID              string      `json:"jid" xml:"jid"`
 	NickName         string      `json:"nickname" xml:"nickname"`
-	SubscriptionType int         `json:"subscriptionType" xml:"subscriptionType"`
+	SubscriptionType string      `json:"subscriptionType" xml:"subscriptionType"`
 	Groups           RosterGroup `json:"groups" xml:"groups"`
 }
 
@@ -54,6 +54,7 @@ func GetRoster(server, authorization, username string) ([]RosterItem, error) {
 		return items, errors.New("http response code isn't OK")
 	}
 	response, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(response))
 	var objmap map[string]*json.RawMessage
 	err = json.Unmarshal([]byte(response), &objmap)
 	const rosterItemKey = "rosterItem"
