@@ -14,10 +14,10 @@ type RosterGroup struct {
 }
 
 type RosterItem struct {
-	JID              string        `json:"jid" xml:"jid"`
-	NickName         string        `json:"nickname" xml:"nickname"`
-	SubscriptionType int           `json:"subscriptionType" xml:"subscriptionType"`
-	Groups           []RosterGroup `json:"groups" xml:"groups"`
+	JID              string      `json:"jid" xml:"jid"`
+	NickName         string      `json:"nickname" xml:"nickname"`
+	SubscriptionType int         `json:"subscriptionType" xml:"subscriptionType"`
+	Groups           RosterGroup `json:"groups" xml:"groups"`
 }
 
 const EndpointPatternRoster string = "%s/plugins/restapi/v1/users/%s/roster"
