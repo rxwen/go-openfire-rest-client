@@ -13,6 +13,13 @@ type RosterGroup struct {
 	Group string `json:"group" xml:"group"`
 }
 
+const (
+	SubscriptionNone = "0"
+	SubscriptionTo   = "1"
+	SubscriptionFrom = "2"
+	SubscriptionBoth = "3"
+)
+
 type RosterItem struct {
 	JID              string      `json:"jid" xml:"jid"`
 	NickName         string      `json:"nickname" xml:"nickname"`
