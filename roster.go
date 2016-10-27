@@ -30,12 +30,6 @@ type RosterItem struct {
 const EndpointPatternRoster string = "%s/plugins/restapi/v1/users/%s/roster"
 const EndpointPatternRosterItem string = "%s/plugins/restapi/v1/users/%s/roster/%s"
 
-func prepareRequest(req *http.Request, authorization string) {
-	req.Header.Set("Authorization", authorization)
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Accept", "application/json")
-}
-
 func GetRoster(server, authorization, username string) ([]RosterItem, error) {
 	url := fmt.Sprintf(EndpointPatternRoster, server, username)
 
@@ -61,7 +55,6 @@ func GetRoster(server, authorization, username string) ([]RosterItem, error) {
 		return items, errors.New("http response code isn't OK")
 	}
 	response, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(response))
 	var objmap map[string]*json.RawMessage
 	err = json.Unmarshal([]byte(response), &objmap)
 	const rosterItemKey = "rosterItem"
