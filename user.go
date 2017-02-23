@@ -1,7 +1,9 @@
 package openfirerest
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -26,10 +28,22 @@ func IsUserExist(server, authorization, username string) (bool, error) {
 			resp.Body.Close()
 		}
 	}()
-
-	if resp.StatusCode == http.StatusNotFound {
+	if resp.StatusCode != http.StatusOK {
+		return false, nil
+	}
+	response, _ := ioutil.ReadAll(resp.Body)
+	var objmap map[string]*json.RawMessage
+	err = json.Unmarshal([]byte(response), &objmap)
+	const nameKey = "username"
+	rawUsername, ok := objmap[nameKey]
+	if !ok {
 		return false, nil
 	} else {
-		return true, nil
+		var returnedUsername string
+		err = json.Unmarshal(*rawUsername, &returnedUsername)
+		if err != nil || returnedUsername != username {
+			return false, err
+		}
 	}
+	return true, nil
 }
