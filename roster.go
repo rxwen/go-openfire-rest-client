@@ -119,7 +119,7 @@ func DeleteRoster(server, authorization, username, rosterJID string) error {
 		}
 	}()
 
-	if resp.StatusCode == http.StatusOK {
+	if resp.StatusCode == http.StatusOK || resp.StatusCode == http.StatusNotFound {
 		return nil
 	}
 	payload, _ := ioutil.ReadAll(resp.Body)
